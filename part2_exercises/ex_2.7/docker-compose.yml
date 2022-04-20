@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+    ml-kurkkumopo-frontend:
+      build:
+        context: ./ml-kurkkumopo-frontend
+        dockerfile: Dockerfile
+      ports:
+        - 127.0.0.1:3000:3000
+      container_name: ml-kurkkumopo-frontend
+
+    ml-kurkkumopo-training:
+      build:
+        context: ./ml-kurkkumopo-training
+        dockerfile: Dockerfile
+      container_name: ml-kurkkumopo-training
+      volumes:
+        - ./images:/src/imgs
+        - ./ml-kurkkumopo-training/data:/src/data
+        - . :/src/model
+
+    ml-kurkkumopo-backend:
+      build:
+        context: ./ml-kurkkumopo-backend
+        dockerfile: Dockerfile
+      ports:
+        - 127.0.0.1:5000:5000
+      container_name: ml-kurkkumopo-backend
+      volumes:
+        - . :/src/model
+      depends_on:
+        - ml-kurkkumopo-training
