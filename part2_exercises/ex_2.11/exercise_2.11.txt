@@ -1,0 +1,2 @@
+I dockerised an earlier project of mine that can be found here: https://github.com/samvancart/number-to-binary-clicker.
+I wrote a Dockerfile by following the instruction in the README and also made a docker-compose.yml to run the programme.
