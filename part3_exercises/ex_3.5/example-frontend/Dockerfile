@@ -21,4 +21,4 @@ RUN npm run build && \
     
 USER appuser
 
-CMD serve -s -l 5000 build
+CMD [ "serve", "-s", "-l", "5000", "build" ]
