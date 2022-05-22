@@ -1,0 +1,35 @@
+# lightweight base image 
+FROM python:3.8-slim
+
+WORKDIR /usr/src/app
+
+COPY . .
+
+EXPOSE 8000
+
+# add new user appuser
+RUN useradd -m appuser && \
+    chown -R appuser:appuser .
+
+# switch to appuser
+USER appuser
+
+# configure PATH for installations
+ENV PATH=/home/appuser/.local/bin:$PATH
+
+# install to PATH
+RUN mkdir num_to_bin_clicker/config && \
+    pip install --no-cache-dir --upgrade pip && \
+    pip install --no-cache-dir django==4.0 && \
+    pip install django-environ --no-cache-dir && \
+    pip install gunicorn && \
+    pip install whitenoise
+    
+ # switch back to working directory
+WORKDIR /usr/src/app
+
+# configure Django
+RUN echo DJANGO_SECRET_KEY=$(python -c 'from django.core.management.utils import get_random_secret_key;print(get_random_secret_key())') > num_to_bin_clicker/config/.env && \
+    echo DJANGO_DEBUG=TRUE >> num_to_bin_clicker/config/.env
+
+CMD [ "python", "manage.py", "runserver", "0.0.0.0:8000" ]

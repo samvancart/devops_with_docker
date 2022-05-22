@@ -16,7 +16,8 @@ RUN npm install --production
 COPY . .
 RUN npm run build && \
     npm install -g serve && \
-    useradd -m appuser
+    useradd -m appuser && \
+    rm -rf /usr/src/app/node_modules
     
 USER appuser
 

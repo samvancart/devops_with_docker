@@ -17,7 +17,8 @@ RUN npm install
 COPY . .
 RUN npm run build && \
     npm install -g serve && \
-    adduser -S appuser
+    adduser -S appuser && \
+    rm -rf /usr/src/app/node_modules
     
 USER appuser
 

@@ -14,7 +14,8 @@ COPY . .
 
 RUN adduser -S appuser && \
     chown -R appuser: /go/src/app && \
-    go build
+    go build && \
+    rm -rf /go/pkg
 
 USER appuser
 

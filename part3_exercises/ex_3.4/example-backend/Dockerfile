@@ -13,9 +13,10 @@ ENV REQUEST_ORIGIN=http://localhost:5000
 COPY . .
 
 RUN useradd -m appuser && \
-    chown -R appuser: /go/src/app
-USER appuser
+    chown -R appuser: /go/src/app && \
+    go build && \
+    rm -rf /go/pkg
 
-RUN go build
+USER appuser
 
 cmd [ "./server" ]
