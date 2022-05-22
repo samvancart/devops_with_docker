@@ -1,0 +1,10 @@
+1. BEFORE RUNNING:
+	1. Create file DOCKERHUB_USER.txt in this directory and copy your Docker Hub username into it (first line).
+	2. Create file DOCKERHUB_TOKEN.txt in this directory and copy your Docker Hub access token into it (first line).
+2. Command to build the container: 
+	docker build . -t build-service
+3. Run on Windows:
+	Cmd:
+	docker run -it -v //var/run/docker.sock:/var/run/docker.sock build-service <Github Repo> <Path to project root>
+	Git Bash:
+	winpty docker run -it -v //var/run/docker.sock:/var/run/docker.sock build-service <Github Repo> <Path to project root>
